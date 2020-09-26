@@ -5,6 +5,7 @@ module.exports = {
     'sourceType': 'module',
   },
   'rules': {
+    "linebreak-style": [0,"error", "windows"],
     'max-len': 'off',
     'require-jsdoc': 'off',
     'arrow-parens': 'off',
