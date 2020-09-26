@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebRTC capture audio and video</title>
+    <!--定义渲染效果-->
+    <style>
+        .none {
+            -webkit-filter: none;
+        }
+        .blur{
+            -webkit-filter: blur(3px);
+        }
+        .grayscale{
+            -webkit-filter: grayscale(1);
+        }
+        .invert{
+            -webkit-filter: invert(1);
+        }
+        .sepia{
+            -webkit-filter: sepia(1);
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <label> audio input device: </label>
+    <select id="audioSource"></select>
+</div>
+<div>
+    <label> audio output device: </label>
+    <select id="audioOutput"></select>
+</div>
+<div>
+    <label> video input device: </label>
+    <select id="videoSource"></select>
+</div>
+
+<div>
+    <label>Filter:</label>
+    <select id="filter">
+        <option value="none">None</option>
+        <option value="blur">Blur</option>
+        <option value="grayscale">Grayscale</option>
+        <option value="invert">Invert</option>
+        <option value="sepia">Sepia</option>
+    </select>
+</div>
+
+<!--音频标签-->
+<video controls id="audio"></video>
+<!--视频标签-->
+<video autoplay playsinline id="video"></video>
+<script src="./js/client.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+</body>
+</html>
