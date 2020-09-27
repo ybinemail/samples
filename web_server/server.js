@@ -15,6 +15,7 @@ const pem = require('pem');
 const fs = require('fs');
 
 pem.createCertificate({days: 1, selfSigned: true}, function(err, keys) {
+  // 添加私有证书，openssl工具生成
   const options = {
     key: fs.readFileSync('../certs/server.pem'),
     cert: fs.readFileSync('../certs/server.pem')
