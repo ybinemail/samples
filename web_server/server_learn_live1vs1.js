@@ -92,11 +92,20 @@ function listenEvent(socket) {
     // 该房间下所有人
     const users = Object.keys(myRoom.sockets).length;
     logger.info('the number of user in room is : ' + users);
-    // 回复消息
-    socket.emit('joined', room, socket.id); // 给本次连接发消息
-    // io.in(room).emit('joined', room, socket.id); // 给某个房间内所有人发消息
-    // socket.to(room).emit('joined', room, socket.id); // 除本连接外，给某个房间内所有人发消息
-    // socket.broadcast.emit('joined', room, socket.id); // 除本连接外，给所有人发消息
+    if (users < 3) {
+      socket.emit('joined', room, socket.id); // 给本次连接发消息
+      if (users > 1) {
+        socket.to(room).emit('otherjoin', room, socket.id); // 通知其他人
+      }
+      // io.in(room).emit('joined', room, socket.id); // 给某个房间内所有人发消息
+      // socket.to(room).emit('joined', room, socket.id); // 除本连接外，给某个房间内所有人发消息
+      // socket.broadcast.emit('joined', room, socket.id); // 除本连接外，给所有人发消息
+    } else {
+      // 移除
+      socket.leave(room);
+      // 回复消息
+      socket.emit('full', room, socket.id); // 给本次连接发消息
+    }
   });
 
   socket.on('leave', (room) => {
@@ -109,15 +118,18 @@ function listenEvent(socket) {
 
     socket.leave(room);
     logger.log('===> leave room : ' + room);
+
+    socket.to(room).emit('bye', room, socket.id);
     // 回复消息
     socket.emit('leaved', room, socket.id); // 给本次连接发消息
     // io.in(room).emit('leave', room, socket.id); // 给某个房间内所有人发消息
     // socket.to(room).emit('leave', room, socket.id); // 除本连接外，给某个房间内所有人发消息
     // socket.broadcast.emit('leave', room, socket.id); // 除本连接外，给所有人发消息
   });
-  socket.on('message', (room, value) => {
-    logger.info('get message : ' + value + 'from room : ' + room);
-    io.in(room).emit('message', room, socket.id, value);
+
+  socket.on('message', (room, data) => {
+    logger.info('get message : ' + data + 'from room : ' + room);
+    socket.to(room).emit('message', data);
   });
 
 
