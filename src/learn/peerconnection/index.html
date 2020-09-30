@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="preview">
+    <div>
+        <!--视频标签-->
+        <h2>Local:</h2>
+        <video autoplay playsinline id="localVideo"></video>
+        <h2>Offer SDP:</h2>
+        <textarea id="offer" rows="20" cols="100"></textarea>
+    </div>
+
+    <div>
+        <!--视频标签-->
+        <h2>Remote:</h2>
+        <video autoplay id="remoteVideo"></video>
+        <h2>Answer SDP:</h2>
+        <textarea id="answer" rows="20" cols="100"></textarea>
+    </div>
+
+</div>
+
+
+<div>
+    <button id="start">Start</button>
+    <button id="call">Call</button>
+    <button id="end">End</button>
+
+</div>
+
+
+</body>
+<script src="./js/client.js"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+</html>
