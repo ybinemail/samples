@@ -43,7 +43,7 @@ function conn() {
   socket.on('otherjoin', (room, id) => {
     console.log('otherjoin room : ' + room + ' socketId : ' + id);
     if (state === 'joined_unbind') {
-      createPeerConnection();
+      connPeerConnection();
     }
     state = 'joined_conn';
     createOffer();
@@ -70,7 +70,6 @@ function conn() {
     console.log('get message : ' + data);
     if (data) {
       if (data.type === 'offer') {
-        localPC.getReceivers()
         // 注意文本转为Description对象
         localPC.setRemoteDescription(new RTCSessionDescription(data));
         localPC.createAnswer().then((answerSdp) => {
